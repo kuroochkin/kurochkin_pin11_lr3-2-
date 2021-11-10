@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <iostream>
+#include <ctime>
+#include <locale>
+#include <iomanip>
+using namespace std;
+#define N 10
+#define M 10
+
+void find_max_j(int i, int j, int a[N][M]) {
+	int max = a[i][j];
+	for (; i < M / 2; i++) {
+		if (max < a[i][j]) {
+			max = a[i][j];
+		}
+	}
+	cout << j + 1 << "\t" << max << endl;
+}
+
+
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	srand(time(0));
+	while (true) {
+		int a[N][M];
+		cout << "Выведем случайный массив A\n";
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < M; j++) {
+				a[i][j] = rand() % 100 - 50;
+				cout << setw(3) << a[i][j] << "\t";
+			}
+			cout << endl;
+		}
+		cout << "Первый столбец: номер столбца, второй столбец: максимальное значение, соответствующее верхней части столбца\n";
+		int r = 0;
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < M; j++) {
+				if (i < N / 2 and j >= M / 2 and r < M / 2) {
+					find_max_j(i, j, a);
+					r++;
+
+				}
+			}
+		}
+		cout << "Продолжить выполнение? Введите 0 если нет, любое число если да:\n";
+		int n;
+		cin >> n;
+		if (n == 0) {
+			break;
+		}
+	}
+}
